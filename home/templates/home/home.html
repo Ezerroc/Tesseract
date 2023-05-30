@@ -1,0 +1,85 @@
+{% load static %}
+<html xmlns:https="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Tesseract</title>
+    <link rel="icon" href="{% static 'logo/logo.png' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/styles.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    {% include 'navbar.html' %}
+
+    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+        <ol class="carousel-indicators">
+            {% for carousel in carousels %}
+                <li data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %}class="active"{% endif %}></li>
+            {% endfor %}
+        </ol>
+        <div class="carousel-inner">
+            {% for carousel in carousels %}
+                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                    <img src="{{ carousel.image.url }}" class="carousel-image d-block w-100" alt="{{ carousel.title }}">
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>{{ carousel.title }}</h5>
+                        <p>{{ carousel.description }}</p>
+                    </div>
+                </div>
+            {% endfor %}
+
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+    <br><br>
+    <div class="container content-background"> <!-- Fond gris -->
+        <div class="container">
+            <div class="container d-flex justify-content-center">
+                <h1>Tesseract Capital</h1>
+            </div>
+            <br><br>
+            <div class="container d-flex justify-content-center">
+                <img src="{% static 'logo/logo.png' %}" alt="Logo Tesseract Capital">
+            </div>
+            <br><br>
+            <p>Bienvenue sur le site internet de Tesseract Capital, un fonds d'investissement révolutionnaire à la pointe de l'innovation. Chez Tesseract, nous nous engageons à créer une valeur durable pour nos investisseurs en identifiant et en soutenant les entreprises les plus prometteuses à travers le monde. Notre approche d'investissement rigoureuse repose sur une recherche approfondie, une analyse stratégique et des partenariats solides avec des entrepreneurs visionnaires. Explorez notre site pour découvrir comment nous transcendons les limites traditionnelles de l'investissement et découvrez les opportunités d'investissement uniques que nous offrons dans les secteurs de la technologie, de la santé, des énergies renouvelables et des sciences de la vie. Rejoignez-nous dans notre quête de nouvelles dimensions d'opportunités et de croissance économique. Bienvenue dans l'univers de Tesseract Capital.</p>
+            <br>
+            <p>Sur notre site, vous trouverez une mine d'informations sur notre société, notre philosophie d'investissement, nos domaines d'expertise et nos succès passés. Découvrez notre équipe d'experts chevronnés qui vous guidera à travers les défis et les opportunités du monde de l'investissement. Restez à jour avec nos dernières actualités, nos rapports de performance et nos événements à venir. Naviguez à travers notre portefeuille d'entreprises innovantes et explorez les opportunités d'investissement disponibles. Que vous soyez un investisseur chevronné à la recherche de rendements élevés ou un entrepreneur ambitieux en quête de partenariats stratégiques, Tesseract Capital est votre partenaire idéal. Ensemble, ouvrons les portes vers de nouveaux horizons d'investissement et bâtissons un avenir prospère.</p>
+        </div>
+
+        <div class="container">
+            <div class="container d-flex justify-content-center">
+                <h1>Nos derniers articles</h1>
+            </div>
+            <br>
+            <div class="row">
+                {% for post in latest_posts %}
+                    <div class="col-lg-4 mb-4">
+                        <div class="card" style="width: 18rem;">
+                            <div class="card-body">
+                                <h5 class="card-title"><a href="{% url 'post-detail' post.pk %}">{{ post.title }}</a></h5>
+                                <p class="card-text">{{ post.content|truncatewords:30|safe }}</p>
+                                <a href="{% url 'post-detail' post.pk %}" class="btn btn-primary">Lire plus</a>
+                                <p>
+                                    Publié le {{ post.date_posted }} par <strong>{{ post.author.username }}</strong>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                {% endfor %}
+            </div>
+        </div>
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    </div>
+    {% include 'footer.html' %}
+
+</body>
+</html>

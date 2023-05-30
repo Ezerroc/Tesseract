@@ -1,0 +1,31 @@
+{% load static %}
+<html xmlns:https="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Tesseract</title>
+    <link rel="icon" href="{% static 'logo/logo.png' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/styles.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body>
+    {% include 'navbar.html' %}
+    <div class="container content-background"> <!-- Fond gris -->
+        <div class="container mt-5">
+            <h1 class="text-center mb-5">Formations</h1>
+            <div class="row">
+                {% for formation in formations %}
+                    <div class="col-md-4 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">{{ formation.title }}</h5>
+                                <p class="card-text">{{ formation.description }}</p>
+                                <a href="{{ formation.get_pdf_url }}" class="btn btn-primary">Download</a>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+    {% include 'footer.html' %}
+</body>
+</html>
